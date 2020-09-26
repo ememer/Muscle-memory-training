@@ -1,2 +1,1 @@
-# fruits-memory-game
-A short memory game
+### more details soon
