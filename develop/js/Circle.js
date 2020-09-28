@@ -3,42 +3,26 @@ import Points from "./Points";
 
 const Circle = () => {
   const [points, setPoints] = useState(0);
-
+  const [isStart, setIsStart] = useState(false);
   const handleClick = (e) => {
-    if (points == 5) return;
-
-    if (e.target.classList == "targetElem") {
-      setPoints(points + 1);
-      e.target.remove();
-      // if (points <= 5) {
-      //   createTargets();
-      //   console.log(points);
-      // } else {
-      //   console.log("stop");
-      // }
-    } else {
-      setPoints(points - 1);
-    }
+    e.target.classList == "targetElem" ? e.target.remove() : null;
+    if (isStart) return;
+    setIsStart((prevState) => !prevState);
+    createDots();
   };
 
-  function createTargets() {
-    let posTop = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
-    let posLeft = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
-    const dart = document.querySelector(".circle_dart");
-    const target = document.createElement("button");
-    dart.appendChild(target);
-    target.classList.add("targetElem");
-    target.style.top = `${posTop}%`;
-    target.style.left = `${posLeft}%`;
+  function createDots() {
+    const dotInterval = setInterval(() => {
+      let posTop = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+      let posLeft = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+      const dart = document.querySelector(".circle_dart");
+      const target = document.createElement("button");
+      dart.appendChild(target);
+      target.classList.add("targetElem");
+      target.style.top = `${posTop}%`;
+      target.style.left = `${posLeft}%`;
+    }, 1000);
   }
-
-  useEffect(() => {
-    if (points < 5) {
-      createTargets();
-    } else {
-      console.log("stop");
-    }
-  }, [points]);
 
   return (
     <>
@@ -46,7 +30,7 @@ const Circle = () => {
       <section>
         <div onClick={(e) => handleClick(e)} className="container">
           <div className="circle_dart">
-            {/* <button className="targetElem"></button>{" "} */}
+            <button className="targetElem"></button>{" "}
           </div>
         </div>
       </section>
