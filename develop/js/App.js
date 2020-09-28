@@ -4,7 +4,6 @@ import Circle from "./Circle";
 
 const App = () => (
   <>
-    <h1>Hello Word</h1>
     <Circle />
   </>
 );
