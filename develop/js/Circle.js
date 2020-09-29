@@ -6,6 +6,7 @@ const Circle = () => {
   const [isStart, setIsStart] = useState(false);
   const handleClick = (e) => {
     e.target.classList == "targetElem" ? e.target.remove() : null;
+    isMissed(e.target.classList);
     if (isStart) return;
     setIsStart((prevState) => !prevState);
     createDots();
@@ -22,6 +23,14 @@ const Circle = () => {
       target.style.top = `${posTop}%`;
       target.style.left = `${posLeft}%`;
     }, 1000);
+  }
+
+  function isMissed(value) {
+    if (value == "targetElem") {
+      setPoints((prevState) => prevState + 1);
+    } else {
+      setPoints((prevState) => (prevState > 0 ? prevState - 1 : 0));
+    }
   }
 
   return (
