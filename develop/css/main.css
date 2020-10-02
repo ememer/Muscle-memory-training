@@ -60,3 +60,9 @@ section {
   color: white;
   font-size: 2rem;
 }
+
+p {
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bold;
+}
