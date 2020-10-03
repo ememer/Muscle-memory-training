@@ -9,10 +9,11 @@ const Circle = () => {
   const [flow, setFlow] = useState(0);
   const [missedValue, setMissedValue] = useState(0);
   const [gamePlayLvl, setGamePlayLvl] = useState("Beginner");
-
+  const [gameFlowValue, setGameFlowValue] = useState();
   const handleClick = (e) => {
     e.target.classList == "targetElem" ? e.target.remove() : null;
     isMissed(e.target.classList);
+
     if (isStart) return;
     setIsStart((prevState) => !prevState);
     setDotInterval(
@@ -26,6 +27,12 @@ const Circle = () => {
     gameFlow(flow);
   }, [points, flow]);
 
+  function slowFlow(missClick) {
+    const flowValue = [16, 32, 48, 64];
+    console.log(flowValue.indexOf(missClick) - 1);
+  }
+  console.log(slowFlow(missedValue));
+
   function gameFlow(value) {
     switch (true) {
       case value === 16:
@@ -36,6 +43,7 @@ const Circle = () => {
           createDots();
         }, intervalValue - 350);
         setIntervalValue((prevValue) => Math.floor(prevValue / 1.05));
+        setGameFlowValue(16);
         return;
       case value === 32:
         setIsStart((prevState) => !prevState);
@@ -45,7 +53,7 @@ const Circle = () => {
           createDots();
         }, intervalValue - 350);
         setIntervalValue((prevValue) => Math.floor(prevValue / 1.4));
-        console.log("switch 2");
+        setGameFlowValue(32);
         return;
       case value === 48:
         setIsStart((prevState) => !prevState);
@@ -55,7 +63,7 @@ const Circle = () => {
           createDots();
         }, intervalValue - 350);
         setIntervalValue((prevValue) => Math.floor(prevValue / 1.6));
-        console.log("switch 3");
+        setGameFlowValue(48);
         return;
       case value === 64:
         setIsStart((prevState) => !prevState);
@@ -65,7 +73,7 @@ const Circle = () => {
           createDots();
         }, intervalValue - 350);
         setIntervalValue(650);
-        console.log("switch 2");
+        setGameFlowValue(64);
         return;
     }
   }
@@ -84,11 +92,12 @@ const Circle = () => {
   function isMissed(value) {
     if (value == "targetElem") {
       setPoints((prevState) => prevState + 1);
-      setFlow((prevState) => (prevState <= 64 ? prevState + 1 : 67));
+      setFlow((prevState) => (prevState <= 64 ? prevState + 1 : 64));
     } else {
       setPoints((prevState) => (prevState > 0 ? prevState - 1 : 0));
       setFlow((prevState) => (prevState > 0 ? prevState - 2 : 0));
       setMissedValue((prevState) => prevState + 1);
+      slowFlow(missedValue);
     }
   }
 
