@@ -11,7 +11,7 @@ const Circle = () => {
   const [gamePlayLvl, setGamePlayLvl] = useState("Beginner");
   const [gameFlowValue, setGameFlowValue] = useState();
   const handleClick = (e) => {
-    e.target.classList == "targetElem" ? e.target.remove() : null;
+    e.target.classList == "dot" ? e.target.remove() : null;
     isMissed(e.target.classList);
     if (isStart) return;
     setIsStart((prevState) => !prevState);
@@ -28,46 +28,51 @@ const Circle = () => {
 
   function slowFlow(missClick) {
     const flowValue = [16, 32, 48, 64];
-    console.log(flowValue.indexOf(missClick));
+    console.log("mis", flowValue.indexOf(missClick));
+    let idx =
+      flowValue.indexOf(missClick) > 0 && flowValue.indexOf(missClick) != -1
+        ? flowValue.indexOf(missClick) - 1
+        : 0;
+    console.log("index", idx);
+    setFlow(flowValue[idx]);
+    let missedTargets = document.querySelectorAll("button");
+    for (const missedTarget of missedTargets) {
+      missedTarget.remove();
+    }
   }
 
   function gameFlow(value) {
     switch (true) {
       case value === 16:
-        resetParam(1.05);
+        resetParam(1300);
         setGamePlayLvl("Noob");
         setGameFlowValue(16);
         return;
       case value === 32:
-        resetParam(1.4);
+        resetParam(1100);
         setGamePlayLvl("Semi");
         setGameFlowValue(32);
         return;
       case value === 48:
-        resetParam(1.6);
+        resetParam(800);
         setGamePlayLvl("Pro");
         setGameFlowValue(48);
         return;
       case value === 64:
-        setIntervalValue(650);
-        setIsStart((prevState) => !prevState);
-        clearInterval(dotInterval);
+        resetParam(600);
         setGamePlayLvl("World elite");
-        setTimeout(() => {
-          createDots();
-        }, intervalValue - 350);
         setGameFlowValue(64);
         return;
     }
   }
 
-  function resetParam(divider) {
+  function resetParam(interval) {
     setIsStart((prevState) => !prevState);
     clearInterval(dotInterval);
     setTimeout(() => {
       createDots();
-    }, intervalValue - 350);
-    setIntervalValue((prevValue) => Math.floor(prevValue / divider));
+    }, intervalValue - 250);
+    setIntervalValue(interval);
   }
 
   function createDots() {
@@ -76,15 +81,15 @@ const Circle = () => {
     const dart = document.querySelector(".circle_dart");
     const target = document.createElement("button");
     dart.appendChild(target);
-    target.classList.add("targetElem");
+    target.classList.add("dot");
     target.style.top = `${posTop}%`;
     target.style.left = `${posLeft}%`;
   }
 
   function isMissed(value) {
-    if (value == "targetElem") {
+    if (value == "dot") {
       setPoints((prevState) => prevState + 1);
-      setFlow((prevState) => (prevState <= 64 ? prevState + 1 : 64));
+      setFlow((prevState) => (prevState <= 64 ? prevState + 1 : 65));
     } else {
       setPoints((prevState) => (prevState > 0 ? prevState - 1 : 0));
       setFlow((prevState) => (prevState > 0 ? prevState - 2 : 0));
@@ -102,7 +107,7 @@ const Circle = () => {
       <section>
         <div onClick={(e) => handleClick(e)} className="container">
           <div className="circle_dart">
-            <button className="targetElem"></button>{" "}
+            <button className="dot"></button>{" "}
           </div>
         </div>
       </section>
