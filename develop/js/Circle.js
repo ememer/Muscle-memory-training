@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Points from "./Points";
+import Statistic from "./Statistic";
 
 const Circle = () => {
   const [points, setPoints] = useState(0);
@@ -27,13 +28,11 @@ const Circle = () => {
   }, [points, flow]);
 
   function slowFlow(missClick) {
-    const flowValue = [16, 32, 48, 64];
-    console.log("mis", flowValue.indexOf(missClick));
+    const flowValue = [20, 60, 100, 130];
     let idx =
       flowValue.indexOf(missClick) > 0 && flowValue.indexOf(missClick) != -1
         ? flowValue.indexOf(missClick) - 1
         : 0;
-    console.log("index", idx);
     setFlow(flowValue[idx]);
     let missedTargets = document.querySelectorAll("button");
     for (const missedTarget of missedTargets) {
@@ -43,23 +42,23 @@ const Circle = () => {
 
   function gameFlow(value) {
     switch (true) {
-      case value === 16:
+      case value === 20:
         resetParam(1300);
         setGamePlayLvl("Noob");
         setGameFlowValue(16);
         return;
-      case value === 32:
-        resetParam(1100);
+      case value === 60:
+        resetParam(900);
         setGamePlayLvl("Semi");
         setGameFlowValue(32);
         return;
-      case value === 48:
-        resetParam(800);
+      case value === 100:
+        resetParam(700);
         setGamePlayLvl("Pro");
         setGameFlowValue(48);
         return;
-      case value === 64:
-        resetParam(600);
+      case value === 130:
+        resetParam(450);
         setGamePlayLvl("World elite");
         setGameFlowValue(64);
         return;
@@ -102,16 +101,34 @@ const Circle = () => {
   }
 
   return (
-    <>
-      <Points status={gamePlayLvl} points={points} />
-      <section>
-        <div onClick={(e) => handleClick(e)} className="container">
-          <div className="circle_dart">
-            <button className="dot"></button>{" "}
+    // <div className="main_container">
+    //   <Statistic />
+    //   <div>
+    //     <Points status={gamePlayLvl} points={points} />
+    //     <section>
+    //       <div onClick={(e) => handleClick(e)} className="container">
+    //         <div className="circle_dart">
+    //           <button className="dot"></button>{" "}
+    //         </div>
+    //       </div>
+    //     </section>
+    //   </div>
+    // </div>
+    <section className="main_container">
+      {/* <div className="statistic_container">
+        <Statistic />
+      </div> */}
+      <div className="circle_container">
+        <Points className="points" status={gamePlayLvl} points={points} />
+        <div className="dart_container">
+          <div onClick={(e) => handleClick(e)} className="dart">
+            <div className="circle_dart">
+              <button className="dot"></button>{" "}
+            </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
