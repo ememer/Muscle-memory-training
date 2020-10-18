@@ -20,6 +20,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn_stats {
+  display: inline-block;
+  margin: 10px;
+  padding: 5px;
+  background-color: pink;
+  border: none;
+  border-radius: 20px;
+}
+.btn_stats:focus {
+  outline: none;
 }
 
 .statistic_container {

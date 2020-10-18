@@ -11,6 +11,10 @@ const Circle = () => {
   const [missedValue, setMissedValue] = useState(0);
   const [gamePlayLvl, setGamePlayLvl] = useState("Beginner");
   const [gameFlowValue, setGameFlowValue] = useState();
+  const [isVisible, setIsVisible] = useState(false)
+
+  const handleToggleStats = () => setIsVisible(visibleState => !visibleState)
+
   const handleClick = (e) => {
     e.target.classList == "dot" ? e.target.remove() : null;
     isMissed(e.target.classList);
@@ -101,23 +105,12 @@ const Circle = () => {
   }
 
   return (
-    // <div className="main_container">
-    //   <Statistic />
-    //   <div>
-    //     <Points status={gamePlayLvl} points={points} />
-    //     <section>
-    //       <div onClick={(e) => handleClick(e)} className="container">
-    //         <div className="circle_dart">
-    //           <button className="dot"></button>{" "}
-    //         </div>
-    //       </div>
-    //     </section>
-    //   </div>
-    // </div>
+    
     <section className="main_container">
-      {/* <div className="statistic_container">
-        <Statistic />
-      </div> */}
+      <button className="btn_stats" onClick={handleToggleStats}>STATS</button>
+      {isVisible ? (<div className="statistic_container">
+        <Statistic points={points} levelStatus={gamePlayLvl} />
+      </div>) : null}
       <div className="circle_container">
         <Points className="points" status={gamePlayLvl} points={points} />
         <div className="dart_container">

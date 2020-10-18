@@ -1,6 +1,6 @@
 import React from "react";
 
-const Statistic = () => {
+const Statistic = ({ points, levelStatus }) => {
   return (
     <div className="list_container">
       <ul>
