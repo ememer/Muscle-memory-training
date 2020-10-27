@@ -1,14 +1,32 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-const Statistic = ({ points, levelStatus }) => {
+const Statistic = () => {
+  const dataFromStorage = JSON.parse(localStorage.getItem("statistic"))
+  const [isVisible, setIsVisible] = useState(false)
+  const [statisticArray, setStatisticArray] = useState(dataFromStorage)
+  const [test, setTest]= useState()
+
+  const handleToggleStats = () => {
+    setIsVisible(visibleState => !visibleState)
+    setStatisticArray(prevState=>{
+    });
+  }
+
+  useEffect(()=>{
+
+  },[statisticArray])
+
+  
+
   return (
-    <div className="list_container">
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </ul>
+     <>
+     <button className={"btn_stats"} onClick={handleToggleStats}>STATS</button>
+    <div className={"list_container"}>
+     {/* {isVisible ? (<ul>
+        {statisticArray.map((items, idx) => <li key={idx}>{items}</li>)}
+      </ul>) : null } */}
     </div>
+    </>
   );
 };
 

@@ -36,8 +36,6 @@ body {
 }
 
 .statistic_container {
-  width: 15vw;
-  height: 400px;
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: 6px 3px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
