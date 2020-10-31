@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Dot from "./Dot";
 import Points from "./Points";
 import Statistic from "./Statistic";
+import Timer from "./Timer";
 
 const Circle = () => {
   const [points, setPoints] = useState(0);
@@ -12,17 +13,18 @@ const Circle = () => {
   const [missedValue, setMissedValue] = useState(0);
   const [gamePlayLvl, setGamePlayLvl] = useState("Beginner");
   const [gameFlowValue, setGameFlowValue] = useState();
-  const [positionArr, setPositionArr] =  useState([{
-    posTop : 50,
-    posLeft : 50,
-    id : 1
+  const [positionArr, setPositionArr] = useState([{
+    posTop: 50,
+    posLeft: 50,
+    id: 1
   }])
-  
 
+  
   const handleClick = (e) => {
     setPositionArr(positionArr.filter((elem) => elem.id != e.target.id))
     isMissed(e.target.classList);
     if (isStart) return;
+    if(e.target.classList != "dot") return;
     setIsStart((prevState) => !prevState);
     setDotInterval(
       setInterval(() => {
@@ -35,6 +37,20 @@ const Circle = () => {
     gameFlow(flow);
   }, [points, flow]);
 
+  function saveScore() {
+    clearInterval(dotInterval)
+    setIsStart(prevState => !prevState)
+    console.log("save");
+    setPositionArr([{
+      posTop: 50,
+      posLeft: 50,
+      id: 1
+    }])
+    setGamePlayLvl("Begginer")
+    setPoints(0)
+  }
+
+
   function slowFlow(missClick) {
     const flowValue = [20, 60, 100, 130];
     let idx =
@@ -43,9 +59,9 @@ const Circle = () => {
         : 0;
     setFlow(flowValue[idx]);
     setPositionArr([{
-      posTop : 50,
-      posLeft : 50,
-      id : 1
+      posTop: 50,
+      posLeft: 50,
+      id: 1
     }])
   }
 
@@ -75,8 +91,8 @@ const Circle = () => {
   }
 
   function resetParam(interval) {
-    setIsStart((prevState) => !prevState);
     clearInterval(dotInterval);
+    setIsStart((prevState) => !prevState);
     setTimeout(() => {
       createDots();
     }, intervalValue - 250);
@@ -84,14 +100,14 @@ const Circle = () => {
   }
 
   function createDots() {
-      let position = {
-        posTop : Math.floor(Math.random() * (100 - 0 + 1)) + 0,
-        posLeft : Math.floor(Math.random() * (100 - 0 + 1)) + 0,
-        id : Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
-      }
-      setPositionArr(prevState => [...prevState, position])     
+    let position = {
+      posTop: Math.floor(Math.random() * (100 - 0 + 1)) + 0,
+      posLeft: Math.floor(Math.random() * (100 - 0 + 1)) + 0,
+      id: Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
     }
-  
+    setPositionArr(prevState => [...prevState, position])
+  }
+
 
   function isMissed(value) {
     if (value == "dot") {
@@ -109,7 +125,7 @@ const Circle = () => {
   }
 
   return (
-    
+
     <section className="main-container">
       <div className="statistic-container">
         <Statistic points={points} levelStatus={gamePlayLvl} />
@@ -119,11 +135,12 @@ const Circle = () => {
         <div className="dart-container">
           <div onClick={(e) => handleClick(e)} className="dart">
             <div className="circle-dart">
-              {positionArr.map(elem => <Dot key={elem.id} position={elem}/>)}
+              {positionArr.map(elem => <Dot key={elem.id} position={elem} />)}
             </div>
           </div>
         </div>
       </div>
+      <Timer isStart={isStart} save={() => saveScore()} />
     </section>
   );
 };

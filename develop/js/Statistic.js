@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 const Statistic = () => {
-  const dataFromStorage = JSON.parse(localStorage.getItem("statistic"))
+  
   const [isVisible, setIsVisible] = useState(false)
   const [statisticArray, setStatisticArray] = useState([{
     Score: null,
@@ -9,16 +9,16 @@ const Statistic = () => {
     Miss: null,
   }]);
   
+  
   const handleToggleStats = () => {
     setIsVisible(visibleState => !visibleState)
-    
   };
 
-
+  
   return (
      <>
-     <button className={"btn_stats"} onClick={handleToggleStats}>STATS</button>
-    <div className={"list_container"}>
+     <button className={"btn-stats"} onClick={handleToggleStats}>STATS</button>
+    <div className={"list-container"}>
      {isVisible ? (<table>
        <thead>
          <tr>
