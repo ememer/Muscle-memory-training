@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Dot from "./Dot";
 import Points from "./Points";
 import Statistic from "./Statistic";
 
@@ -11,10 +12,15 @@ const Circle = () => {
   const [missedValue, setMissedValue] = useState(0);
   const [gamePlayLvl, setGamePlayLvl] = useState("Beginner");
   const [gameFlowValue, setGameFlowValue] = useState();
+  const [positionArr, setPositionArr] =  useState([{
+    posTop : 50,
+    posLeft : 50,
+    id : 1
+  }])
   
 
   const handleClick = (e) => {
-    e.target.classList == "dot" ? e.target.remove() : null;
+    setPositionArr(positionArr.filter((elem) => elem.id != e.target.id))
     isMissed(e.target.classList);
     if (isStart) return;
     setIsStart((prevState) => !prevState);
@@ -36,10 +42,11 @@ const Circle = () => {
         ? flowValue.indexOf(missClick) - 1
         : 0;
     setFlow(flowValue[idx]);
-    let missedTargets = document.querySelectorAll("button");
-    for (const missedTarget of missedTargets) {
-      missedTarget.remove();
-    }
+    setPositionArr([{
+      posTop : 50,
+      posLeft : 50,
+      id : 1
+    }])
   }
 
   function gameFlow(value) {
@@ -77,15 +84,14 @@ const Circle = () => {
   }
 
   function createDots() {
-    let posTop = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
-    let posLeft = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
-    const dart = document.querySelector(".circle_dart");
-    const target = document.createElement("button");
-    dart.appendChild(target);
-    target.classList.add("dot");
-    target.style.top = `${posTop}%`;
-    target.style.left = `${posLeft}%`;
-  }
+      let position = {
+        posTop : Math.floor(Math.random() * (100 - 0 + 1)) + 0,
+        posLeft : Math.floor(Math.random() * (100 - 0 + 1)) + 0,
+        id : Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
+      }
+      setPositionArr(prevState => [...prevState, position])     
+    }
+  
 
   function isMissed(value) {
     if (value == "dot") {
@@ -104,16 +110,16 @@ const Circle = () => {
 
   return (
     
-    <section className={"main_container"}>
-      <div className={"statistic_container"}>
+    <section className="main-container">
+      <div className="statistic-container">
         <Statistic points={points} levelStatus={gamePlayLvl} />
       </div>
-      <div className={"circle_container"}>
-        <Points className={"points"} status={gamePlayLvl} points={points} />
-        <div className={"dart_container"}>
-          <div onClick={(e) => handleClick(e)} className={"dart"}>
-            <div className={"circle_dart"}>
-              <button className={"dot"}></button>{" "}
+      <div className="circle-container">
+        <Points className="points" status={gamePlayLvl} points={points} />
+        <div className="dart-container">
+          <div onClick={(e) => handleClick(e)} className="dart">
+            <div className="circle-dart">
+              {positionArr.map(elem => <Dot key={elem.id} position={elem}/>)}
             </div>
           </div>
         </div>
