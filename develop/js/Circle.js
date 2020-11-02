@@ -37,10 +37,11 @@ const Circle = () => {
     gameFlow(flow);
   }, [points, flow]);
 
-  function saveScore() {
+
+
+  function gameOver(save) {
     clearInterval(dotInterval)
     setIsStart(prevState => !prevState)
-    console.log("save");
     setPositionArr([{
       posTop: 50,
       posLeft: 50,
@@ -51,8 +52,10 @@ const Circle = () => {
   }
 
 
+  
+
   function slowFlow(missClick) {
-    const flowValue = [20, 60, 100, 130];
+    const flowValue = [10, 40, 70, 90];
     let idx =
       flowValue.indexOf(missClick) > 0 && flowValue.indexOf(missClick) != -1
         ? flowValue.indexOf(missClick) - 1
@@ -67,22 +70,22 @@ const Circle = () => {
 
   function gameFlow(value) {
     switch (true) {
-      case value === 20:
+      case value === 10:
         resetParam(1300);
         setGamePlayLvl("Noob");
         setGameFlowValue(16);
         return;
-      case value === 60:
+      case value === 40:
         resetParam(900);
         setGamePlayLvl("Semi");
         setGameFlowValue(32);
         return;
-      case value === 100:
+      case value === 70:
         resetParam(700);
         setGamePlayLvl("Pro");
         setGameFlowValue(48);
         return;
-      case value === 130:
+      case value === 90:
         resetParam(450);
         setGamePlayLvl("World elite");
         setGameFlowValue(64);
@@ -140,7 +143,7 @@ const Circle = () => {
           </div>
         </div>
       </div>
-      <Timer isStart={isStart} save={() => saveScore()} />
+      <Timer isStart={isStart} gameOver={gameOver} />
     </section>
   );
 };

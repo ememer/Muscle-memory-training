@@ -1,20 +1,21 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
-const Statistic = () => {
+const Statistic = (props) => {
   
   const [isVisible, setIsVisible] = useState(false)
   const [statisticArray, setStatisticArray] = useState([{
     Score: null,
     Time: null,
-    Miss: null,
   }]);
+  
   
   
   const handleToggleStats = () => {
     setIsVisible(visibleState => !visibleState)
   };
-
   
+
+ 
   return (
      <>
      <button className={"btn-stats"} onClick={handleToggleStats}>STATS</button>
@@ -31,8 +32,7 @@ const Statistic = () => {
        {statisticArray.map((items,idx)=><tr key={idx}>
          <td>{items.Score}</td>
          <td>{items.Time}</td>
-         <td>{items.Miss}</td>
-         </tr>)}
+       </tr>)}
        </tbody>
      </table>) : null }
     </div>
