@@ -4,7 +4,7 @@ const Timer = (props) =>{
     const [time, setTime] = useState(5)
     const [lockInterval, setLockInterval] = useState(false)
     const [timerInterval, setTimerInterval] = useState()
-    const [isCountDownDone, setIsCountDownDone] = useState(false)
+   
     
     if(!lockInterval){
         if(props.isStart){
@@ -19,7 +19,7 @@ const Timer = (props) =>{
         if(time < 0){
             clearInterval(timerInterval)
             setTime(5)
-            props.gameOver(isCountDownDone)
+            props.gameOver(false)
             setLockInterval(prevState => !prevState)
         }
     },[time])

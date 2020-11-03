@@ -18,10 +18,11 @@ const Circle = () => {
     posLeft: 50,
     id: 1
   }])
+  const [lastGameStatus, setLastGameStatus] = useState()
 
   
   const handleClick = (e) => {
-    setPositionArr(positionArr.filter((elem) => elem.id != e.target.id))
+    setPositionArr(positionArr.filter((item) => item.id != e.target.id))
     isMissed(e.target.classList);
     if (isStart) return;
     if(e.target.classList != "dot") return;
@@ -35,11 +36,16 @@ const Circle = () => {
 
   useEffect(() => {
     gameFlow(flow);
+    console.log(lastGameStatus);
   }, [points, flow]);
 
 
 
   function gameOver(save) {
+    setLastGameStatus({
+      Score: points,
+      Level: gamePlayLvl,
+    })
     clearInterval(dotInterval)
     setIsStart(prevState => !prevState)
     setPositionArr([{
@@ -49,6 +55,7 @@ const Circle = () => {
     }])
     setGamePlayLvl("Begginer")
     setPoints(0)
+    
   }
 
 
@@ -131,7 +138,7 @@ const Circle = () => {
 
     <section className="main-container">
       <div className="statistic-container">
-        <Statistic points={points} levelStatus={gamePlayLvl} />
+        <Statistic lastGameStatus={lastGameStatus}/>
       </div>
       <div className="circle-container">
         <Points className="points" status={gamePlayLvl} points={points} />

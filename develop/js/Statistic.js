@@ -5,7 +5,7 @@ const Statistic = (props) => {
   const [isVisible, setIsVisible] = useState(false)
   const [statisticArray, setStatisticArray] = useState([{
     Score: null,
-    Time: null,
+    Level: null,
   }]);
   
   
@@ -14,8 +14,11 @@ const Statistic = (props) => {
     setIsVisible(visibleState => !visibleState)
   };
   
-
- 
+  useEffect(()=>{
+    // setStatisticArray(prevArr => [...prevArr,props.lastGameStatus])
+    console.log(props.lastGameStatus);
+  },[statisticArray])
+  
   return (
      <>
      <button className={"btn-stats"} onClick={handleToggleStats}>STATS</button>
@@ -24,14 +27,13 @@ const Statistic = (props) => {
        <thead>
          <tr>
           <th>Score</th>
-          <th>Time</th>
-          <th>Miss</th>
-         </tr>
+          <th>Level</th>
+          </tr>
        </thead>
        <tbody>
        {statisticArray.map((items,idx)=><tr key={idx}>
          <td>{items.Score}</td>
-         <td>{items.Time}</td>
+         <td>{items.Level}</td>
        </tr>)}
        </tbody>
      </table>) : null }
