@@ -13,19 +13,20 @@ const Circle = () => {
   const [missedValue, setMissedValue] = useState(0);
   const [gamePlayLvl, setGamePlayLvl] = useState("Beginner");
   const [gameFlowValue, setGameFlowValue] = useState();
-  const [positionArr, setPositionArr] = useState([{
-    posTop: 50,
-    posLeft: 50,
-    id: 1
-  }])
-  const [lastGameStatus, setLastGameStatus] = useState()
+  const [dots, setDots] = useState([
+    {
+      posTop: 50,
+      posLeft: 50,
+      id: 1,
+    },
+  ]);
+  const [lastGameStatus, setLastGameStatus] = useState();
 
-  
   const handleClick = (e) => {
-    setPositionArr(positionArr.filter((item) => item.id != e.target.id))
+    setDots(dots.filter((item) => item.id != e.target.id));
     isMissed(e.target.classList);
     if (isStart) return;
-    if(e.target.classList != "dot") return;
+    if (e.target.classList != "dot") return;
     setIsStart((prevState) => !prevState);
     setDotInterval(
       setInterval(() => {
@@ -36,43 +37,38 @@ const Circle = () => {
 
   useEffect(() => {
     gameFlow(flow);
-    console.log(lastGameStatus);
   }, [points, flow]);
-
-
 
   function gameOver(save) {
     setLastGameStatus({
-      Score: points,
-      Level: gamePlayLvl,
-    })
-    clearInterval(dotInterval)
-    setIsStart(prevState => !prevState)
-    setPositionArr([{
-      posTop: 50,
-      posLeft: 50,
-      id: 1
-    }])
-    setGamePlayLvl("Begginer")
-    setPoints(0)
-    
+      score: points,
+      level: gamePlayLvl,
+    });
+    clearInterval(dotInterval);
+    setIsStart(false);
+    setDots([
+      {
+        posTop: 50,
+        posLeft: 50,
+        id: 1,
+      },
+    ]);
+    setGamePlayLvl("Begginer");
+    setPoints(0);
   }
-
-
-  
 
   function slowFlow(missClick) {
     const flowValue = [10, 40, 70, 90];
     let idx =
-      flowValue.indexOf(missClick) > 0 && flowValue.indexOf(missClick) != -1
-        ? flowValue.indexOf(missClick) - 1
-        : 0;
+      flowValue.indexOf(missClick) > 0 ? flowValue.indexOf(missClick) - 1 : 0;
     setFlow(flowValue[idx]);
-    setPositionArr([{
-      posTop: 50,
-      posLeft: 50,
-      id: 1
-    }])
+    setDots([
+      {
+        posTop: 50,
+        posLeft: 50,
+        id: 1,
+      },
+    ]);
   }
 
   function gameFlow(value) {
@@ -111,13 +107,12 @@ const Circle = () => {
 
   function createDots() {
     let position = {
-      posTop: Math.floor(Math.random() * (100 - 0 + 1)) + 0,
-      posLeft: Math.floor(Math.random() * (100 - 0 + 1)) + 0,
-      id: Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
-    }
-    setPositionArr(prevState => [...prevState, position])
+      posTop: Math.floor(Math.random() * (100 + 1)) + 0,
+      posLeft: Math.floor(Math.random() * (100 + 1)) + 0,
+      id: Math.floor(Math.random() * (10000000 + 1)) + 0,
+    };
+    setDots((prevState) => [...prevState, position]);
   }
-
 
   function isMissed(value) {
     if (value == "dot") {
@@ -135,17 +130,18 @@ const Circle = () => {
   }
 
   return (
-
     <section className="main-container">
       <div className="statistic-container">
-        <Statistic lastGameStatus={lastGameStatus}/>
+        <Statistic lastGameStatus={lastGameStatus} />
       </div>
       <div className="circle-container">
         <Points className="points" status={gamePlayLvl} points={points} />
         <div className="dart-container">
-          <div onClick={(e) => handleClick(e)} className="dart">
+          <div onClick={handleClick} className="dart">
             <div className="circle-dart">
-              {positionArr.map(elem => <Dot key={elem.id} position={elem} />)}
+              {dots.map((elem) => (
+                <Dot key={elem.id} position={elem} />
+              ))}
             </div>
           </div>
         </div>
