@@ -41,12 +41,12 @@ const Circle = () => {
 
   function gameOver(save) {
     setLastGameStatus({
-      score: points,
-      level: gamePlayLvl,
+      Score: points,
+      Level: gamePlayLvl,
     });
     clearInterval(dotInterval);
-    setIsStart(false);
-    setDots([
+    setIsStart((prevState) => !prevState);
+    setPositionArr([
       {
         posTop: 50,
         posLeft: 50,
