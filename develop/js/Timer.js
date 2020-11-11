@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const Timer = (props) => {
-  const [time, setTime] = useState(5);
+  const [time, setTime] = useState(10);
   const [lockInterval, setLockInterval] = useState(false);
   const [timerInterval, setTimerInterval] = useState();
 
@@ -19,7 +19,7 @@ const Timer = (props) => {
   useEffect(() => {
     if (time < 0) {
       clearInterval(timerInterval);
-      setTime(5);
+      setTime(10);
       props.gameOver(false);
       setLockInterval((prevState) => !prevState);
     }

@@ -4,7 +4,7 @@ import Points from "./Points";
 import Statistic from "./Statistic";
 import Timer from "./Timer";
 
-const Circle = () => {
+const Game = () => {
   const [points, setPoints] = useState(0);
   const [isStart, setIsStart] = useState(false);
   const [dotInterval, setDotInterval] = useState();
@@ -13,6 +13,7 @@ const Circle = () => {
   const [missedValue, setMissedValue] = useState(0);
   const [gamePlayLvl, setGamePlayLvl] = useState("Beginner");
   const [gameFlowValue, setGameFlowValue] = useState();
+  const [lastGameStatus, setLastGameStatus] = useState([]);
   const [dots, setDots] = useState([
     {
       posTop: 50,
@@ -20,7 +21,6 @@ const Circle = () => {
       id: 1,
     },
   ]);
-  const [lastGameStatus, setLastGameStatus] = useState();
 
   const handleClick = (e) => {
     setDots(dots.filter((item) => item.id != e.target.id));
@@ -40,13 +40,16 @@ const Circle = () => {
   }, [points, flow]);
 
   function gameOver(save) {
-    setLastGameStatus({
-      Score: points,
-      Level: gamePlayLvl,
-    });
+    setLastGameStatus((prevState) => [
+      ...prevState,
+      {
+        score: points,
+        level: gamePlayLvl,
+      },
+    ]);
     clearInterval(dotInterval);
     setIsStart((prevState) => !prevState);
-    setPositionArr([
+    setDots([
       {
         posTop: 50,
         posLeft: 50,
@@ -151,4 +154,4 @@ const Circle = () => {
   );
 };
 
-export default Circle;
+export default Game;

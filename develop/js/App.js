@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Circle from "./Circle";
+import Game from "./Game";
 
 const App = () => (
   <>
-    <Circle />
+    <Game />
   </>
 );
 ReactDOM.render(<App />, document.getElementById("App"));
