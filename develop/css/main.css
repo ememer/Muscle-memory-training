@@ -114,3 +114,13 @@ p {
   color: white;
   font-weight: bold;
 }
+
+.timer-section {
+  width: 100px;
+}
+
+.timer {
+  padding: 10px;
+  color: white;
+  font-size: 2rem;
+}

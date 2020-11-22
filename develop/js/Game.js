@@ -121,7 +121,7 @@ const Game = () => {
     if (value == "dot") {
       setPoints((prevState) => prevState + 1);
       setFlow((prevState) => (prevState <= 64 ? prevState + 1 : 65));
-    } else {
+    } else if (isStart) {
       setPoints((prevState) => (prevState > 0 ? prevState - 1 : 0));
       setFlow((prevState) => (prevState > 0 ? prevState - 2 : 0));
       setMissedValue((prevState) => prevState + 1);
