@@ -1,7 +1,44 @@
-### Muscle memory training game
 
-is a basic game to training muscle memory.
+# Muscle memory game 
 
-##Play game
-Simply click at dot every time when new is generate,
-you need to push only dots to catch up point in 180s
+Is playground to training and grow up your tracking skill in games with muscle memory.
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://link-to-project
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+
+## Demo
+
+https://chillycube.pl/muscle-memory/
+
+
+## Tech Stack
+
+**Client:** React,
+
+**UI:** SASS
+
